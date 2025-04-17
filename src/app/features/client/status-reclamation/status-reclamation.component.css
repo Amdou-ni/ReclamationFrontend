@@ -1,0 +1,16 @@
+.en-attente {
+    color: orange;
+  }
+  
+  .en-cours {
+    color: blue;
+  }
+  
+  .resolue {
+    color: green;
+  }
+  
+  .error {
+    color: red;
+  }
+  

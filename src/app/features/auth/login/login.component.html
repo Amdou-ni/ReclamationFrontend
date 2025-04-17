@@ -1,0 +1,6 @@
+<form (ngSubmit)="login()" #loginForm="ngForm">
+    <input name="email" [(ngModel)]="credentials.email" placeholder="Email" required />
+    <input name="password" type="password" [(ngModel)]="credentials.password" placeholder="Mot de passe" required />
+    <button type="submit">Se connecter</button>
+  </form>
+  

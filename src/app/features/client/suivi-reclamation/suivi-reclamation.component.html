@@ -1,0 +1,30 @@
+<!-- suivi-reclamation.component.html -->
+<form (ngSubmit)="onSearch()" #searchForm="ngForm">
+    <div>
+      <label for="reclamationId">ID de réclamation</label>
+      <input id="reclamationId" name="reclamationId" [(ngModel)]="searchCriteria.reclamationId" placeholder="Entrez l'ID de réclamation" />
+    </div>
+  
+    <div>
+      <label for="email">Email</label>
+      <input id="email" name="email" type="email" [(ngModel)]="searchCriteria.email" placeholder="Entrez votre email" />
+    </div>
+  
+    <button type="submit" [disabled]="!searchForm.form.valid">Rechercher</button>
+  </form>
+  
+  <!-- Affichage des détails de la réclamation -->
+  <div *ngIf="reclamation; else noReclamation">
+    <h2>Détails de la réclamation</h2>
+    <p><strong>ID :</strong> {{ reclamation.Id }}</p>
+    <p><strong>Description :</strong> {{ reclamation.Description }}</p>
+    <p><strong>Statut :</strong> {{ reclamation.Statut }}</p>
+    <p><strong>Date de soumission :</strong> {{ reclamation.DateSoumission }}</p>
+    <p><strong>Type :</strong> {{ reclamation.Type }}</p>
+  </div>
+  
+  <!-- Message d'erreur si la réclamation n'est pas trouvée -->
+  <ng-template #noReclamation>
+    <p>{{ errorMessage }}</p>
+  </ng-template>
+  

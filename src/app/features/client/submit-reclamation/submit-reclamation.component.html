@@ -1,0 +1,39 @@
+<form (ngSubmit)="onSubmit()" #reclamationForm="ngForm">
+  <!-- Description -->
+  <label for="Description">Description</label>
+  <input
+    id="Description"
+    name="Description"
+    [(ngModel)]="reclamation.Description"
+    required
+    placeholder="Décrivez votre réclamation"
+  />
+  <div *ngIf="reclamationForm.submitted && !reclamation.Description">
+    Description requise
+  </div>
+
+  <!-- Type de réclamation -->
+  <label for="Type">Type de réclamation</label>
+  <select
+    id="Type"
+    name="Type"
+    [(ngModel)]="reclamation.Type"
+    required
+  >
+    <option value="">-- Sélectionnez un type --</option>
+    <option value="Technique">Technique</option>
+    <option value="Service">Service</option>
+    <option value="Autre">Autre</option>
+  </select>
+  <div *ngIf="reclamationForm.submitted && !reclamation.Type">
+    Type requis
+  </div>
+
+  <!-- UtilisateurId (géré automatiquement dans le TS, champ caché si besoin) -->
+  <input type="hidden" name="UtilisateurId" [(ngModel)]="reclamation.UtilisateurId" />
+
+  <!-- Bouton d’envoi -->
+  <button type="submit" [disabled]="!reclamationForm.form.valid">
+    Envoyer
+  </button>
+</form>

@@ -1,0 +1,21 @@
+<div *ngIf="errorMessage" class="error">
+    {{ errorMessage }}
+  </div>
+  
+  <div *ngIf="reclamation">
+    <h2>Suivi de Réclamation</h2>
+    <p><strong>Nom:</strong> {{ reclamation.nom }}</p>
+    <p><strong>Email:</strong> {{ reclamation.email }}</p>
+    <p><strong>Type:</strong> {{ reclamation.type }}</p>
+    <p><strong>Description:</strong> {{ reclamation.description }}</p>
+    <p><strong>Statut:</strong> 
+      <span [ngClass]="{
+        'en-attente': reclamation.statut === 'En Attente',
+        'en-cours': reclamation.statut === 'En Cours',
+        'resolue': reclamation.statut === 'Résolue'
+      }">
+        {{ reclamation.statut }}
+      </span>
+    </p>
+  </div>
+  

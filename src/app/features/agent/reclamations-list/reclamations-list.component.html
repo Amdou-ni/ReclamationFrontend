@@ -1,0 +1,9 @@
+<tr *ngFor="let reclamation of reclamations">
+    <td>{{ reclamation.UtilisateurId }}</td> <!-- Ou un autre champ utilisateur si dispo -->
+    <td>{{ reclamation.Type }}</td>
+    <td>{{ reclamation.DateSoumission | date:'short' }}</td> <!-- Formatage date -->
+    <td>
+      <a [routerLink]="['/suivi', reclamation.Id]">Voir le statut</a>
+    </td>
+  </tr>
+  
