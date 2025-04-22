@@ -1,1 +1,17 @@
-<p>liste works!</p>
+<div class="agent-container">
+    <h2>📋 Réclamations à traiter</h2>
+  
+    <div *ngIf="reclamations.length === 0">
+      Aucune réclamation en attente.
+    </div>
+  
+    <ul class="reclamation-list" *ngIf="reclamations.length > 0">
+      <li *ngFor="let r of reclamations" class="reclamation-item">
+        <p><strong>Nom:</strong> {{ r.nom }}</p>
+        <p><strong>Objet:</strong> {{ r.objet }}</p>
+        <p><strong>Statut:</strong> {{ r.statut }}</p>
+        <button>Traiter</button>
+      </li>
+    </ul>
+  </div>
+  

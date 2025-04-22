@@ -1,23 +1,25 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { NavBarComponent } from './nav-bar/nav-bar.component';
+import { NavbarComponent } from './nav-bar/nav-bar.component';
 import { SectionHeaderComponent } from './section-header/section-header.component';
 import { BreadcrumbModule } from 'xng-breadcrumb';
 import { RouterModule } from '@angular/router';
 
 @NgModule({
   declarations: [
-    NavBarComponent,
+    NavbarComponent,  // Correct - declares the component
     SectionHeaderComponent
   ],
   imports: [
     CommonModule,
     BreadcrumbModule,
-    RouterModule
-
+    RouterModule,
+    // Remove NavbarComponent from here - components don't go in imports
   ],
-  exports:[ NavBarComponent,
+  exports: [
+    NavbarComponent,  // Correct - exports the component
     SectionHeaderComponent,
-    RouterModule]
+    RouterModule
+  ]
 })
 export class CoreModule { }

@@ -5,19 +5,20 @@ import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HttpClientModule } from '@angular/common/http';
 import { NgxSpinnerModule } from 'ngx-spinner';
+
 import { HomeModule } from './home/home.module';
-// Remove this line: import { LoginComponent } from './auth/login/login.component';
+
 
 import { CoreModule } from './core/core.module';
 import { ClientModule } from './client/client.module';
 import { AuthModule } from './auth/auth.module';
-import { ConfirmationComponent } from './confirmation/confirmation.component'; // Add AuthModule import
+import { ConfirmationComponent } from './confirmation/confirmation.component'; 
+
 
 @NgModule({
   declarations: [
     AppComponent,
-    ConfirmationComponent, // Only AppComponent should be here
-    // Remove LoginComponent (it's already in AuthModule)
+    ConfirmationComponent
   ],
   imports: [
     BrowserModule,
