@@ -1,0 +1,43 @@
+<div class="notifications-container">
+    <div class="notifications-header">
+      <h2>
+        <i class="icon-bell"></i>
+        Mes Notifications
+      </h2>
+      <button class="mark-all-read" (click)="markAllAsRead()" *ngIf="(notifications$ | async)?.length">
+        Tout marquer comme lu
+      </button>
+    </div>
+  
+    <div class="notifications-list">
+      <div *ngIf="(notifications$ | async)?.length === 0" class="empty-state">
+        <i class="icon-check"></i>
+        <p>Aucune nouvelle notification</p>
+      </div>
+  
+      <div class="notification-item" 
+           *ngFor="let notification of notifications$ | async"
+           [class.unread]="!notification.isRead"
+           (click)="markAsRead(notification.id)">
+        <div class="notification-icon">
+          <i [class]="getNotificationIcon(notification.type)"></i>
+        </div>
+        <div class="notification-content">
+          <p class="notification-message">{{ notification.message }}</p>
+          <div class="notification-footer">
+            <span class="notification-date">
+              {{ notification.dateEnvoi | date:'dd/MM/yyyy HH:mm' }}
+            </span>
+            <span class="notification-type">
+              {{ notification.type | uppercase }}
+            </span>
+          </div>
+        </div>
+        <div class="notification-actions">
+          <button class="btn-mark-read">
+            <i class="icon-double-check"></i>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>

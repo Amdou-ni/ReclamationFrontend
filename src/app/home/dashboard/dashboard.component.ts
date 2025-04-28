@@ -1,6 +1,7 @@
+// src/app/home/dashboard/dashboard.component.ts
 import { Component, OnInit } from '@angular/core';
-import { ReclamationService } from '../../services/reclamation.service';
-
+import { Router } from '@angular/router';
+import { AuthenticationService } from 'src/app/services/authentication.service';
 
 @Component({
   selector: 'app-dashboard',
@@ -8,17 +9,11 @@ import { ReclamationService } from '../../services/reclamation.service';
   styleUrls: ['./dashboard.component.scss']
 })
 export class DashboardComponent implements OnInit {
-  total = 0;
-  enAttente = 0;
-  traitees = 0;
-
-  constructor(private reclamationService: ReclamationService) {}
+  constructor(private authService: AuthenticationService, private router: Router) {}
 
   ngOnInit(): void {
-    this.reclamationService.getAllReclamations().subscribe((reclamations) => {
-      this.total = reclamations.length;
-      this.enAttente = reclamations.filter(r => r.statut === 'En attente').length;
-      this.traitees = reclamations.filter(r => r.statut === 'Traité').length;
-    });
+    if (!this.authService.isLoggedIn()) {
+      this.router.navigate(['/login']);
+    }
   }
 }

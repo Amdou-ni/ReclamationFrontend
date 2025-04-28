@@ -1,1 +1,20 @@
-<p>types-reclamation works!</p>
+<div class="types-reclamation">
+    <h2>Types de Réclamations</h2>
+    <table>
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Nom</th>
+          <th>Description</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let type of typesReclamations">
+          <td>{{ type.id }}</td>
+          <td>{{ type.nom }}</td>
+          <td>{{ type.description }}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  

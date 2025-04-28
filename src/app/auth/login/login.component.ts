@@ -1,55 +1,46 @@
-import { Component, OnInit } from '@angular/core';
+// src/app/login/login.component.ts
+import { Component } from '@angular/core';
 import { Router } from '@angular/router';
-import { AuthService } from 'src/app/auth/auth.service';
-// Remove this line: import { LoginComponent } from 'src/app/auth/login/login.component';
+import { AuthenticationService } from 'src/app/services/authentication.service';
 
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.scss']
 })
-export class LoginComponent implements OnInit {
-  email = '';
-  password = '';
-  error = '';
+export class LoginComponent {
+  email: string = '';
+  password: string = '';
+  errorMessage: string = '';
+  isLoading: boolean = false;
 
-  constructor(private authService: AuthService, private router: Router) {}
+  constructor(private authService: AuthenticationService, private router: Router) {}
 
-  ngOnInit(): void {}
-
+  
   login(): void {
-
-    console.log('Tentative de connexion...');
-    const success = this.authService.login(this.email, this.password);
-    console.log('Login réussi ?', success);
-    console.log('Token actuel :', this.authService.getToken());
-    console.log('Role actuel via getRole() :', this.authService.getRole());
+    this.isLoading = true;
+    this.authService.login(this.email, this.password).subscribe({
+      next: (response) => {
+        localStorage.setItem('auth_token', response.token);
   
-    if (success) {
-      const role = this.authService.getRole();
-  
-      switch (role) {
-        case 'Client':
-          this.router.navigate(['/reclamation']);
-          break;
-        case 'Agent':
+        const userRole = response.role; // Récupérer le rôle envoyé par le serveur
+        if (userRole === 'Agent') {
           this.router.navigate(['/agent']);
-          break;
-        case 'Admin':
+        } else if (userRole === 'Client') {
+          this.router.navigate(['/client']);
+        } else if (userRole === 'Admin') {
           this.router.navigate(['/admin']);
-          break;
-        default:
-          this.error = 'Rôle inconnu.';
+        } else {
+          this.errorMessage = 'Rôle non reconnu';
+        }
+  
+        this.isLoading = false;
+      },
+      error: (err) => {
+        this.errorMessage = 'Email ou mot de passe incorrects';
+        this.isLoading = false;
       }
-    } else {
-      this.error = 'Email ou mot de passe incorrect';
-    }
-
-
-  
+    });
   }
-
-
-
   
-  }
+}

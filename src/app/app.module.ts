@@ -12,13 +12,15 @@ import { HomeModule } from './home/home.module';
 import { CoreModule } from './core/core.module';
 import { ClientModule } from './client/client.module';
 import { AuthModule } from './auth/auth.module';
-import { ConfirmationComponent } from './confirmation/confirmation.component'; 
+import { ConfirmationComponent } from './confirmation/confirmation.component';
+import { UtilisateurDetailComponent } from './app/utilisateur-detail/utilisateur-detail.component'; 
 
 
 @NgModule({
   declarations: [
     AppComponent,
-    ConfirmationComponent
+    ConfirmationComponent,
+    UtilisateurDetailComponent
   ],
   imports: [
     BrowserModule,

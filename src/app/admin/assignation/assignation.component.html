@@ -1,1 +1,21 @@
-<p>assignation works!</p>
+<div class="assignation">
+    <h2>Assignations</h2>
+  
+    <form (ngSubmit)="createAssignation()">
+      <label for="taskId">ID de la tâche :</label>
+      <input id="taskId" [(ngModel)]="newAssignation.taskId" name="taskId" required>
+  
+      <label for="userId">ID de l'utilisateur :</label>
+      <input id="userId" [(ngModel)]="newAssignation.userId" name="userId" required>
+  
+      <button type="submit">Créer une assignation</button>
+    </form>
+  
+    <ul>
+      <li *ngFor="let assignation of assignations">
+        Tâche ID: {{ assignation.taskId }}, Utilisateur ID: {{ assignation.userId }} - {{ assignation.dateAssignation | date:'short' }}
+        <button (click)="deleteAssignation(assignation.id)">Supprimer</button>
+      </li>
+    </ul>
+  </div>
+  

@@ -1,0 +1,26 @@
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 1rem;
+  
+    th, td {
+      padding: 10px;
+      border: 1px solid #ddd;
+      text-align: left;
+    }
+  }
+  
+  .badge-lue {
+    background-color: green;
+    color: white;
+    padding: 4px 8px;
+    border-radius: 4px;
+  }
+  
+  .badge-non-lue {
+    background-color: orange;
+    color: white;
+    padding: 4px 8px;
+    border-radius: 4px;
+  }
+  

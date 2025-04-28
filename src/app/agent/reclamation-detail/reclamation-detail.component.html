@@ -1,0 +1,21 @@
+<div *ngIf="isLoading" class="loading">Chargement...</div>
+<div *ngIf="!isLoading && reclamation">
+  <h2>Détail de la réclamation</h2>
+  
+  <!-- Afficher la description de la réclamation -->
+  <p><strong>Description:</strong> {{ reclamation.description }}</p>
+  <p><strong>Date de soumission:</strong> {{ reclamation.dateSoumission | date: 'dd/MM/yyyy' }}</p>
+
+  <!-- Formulaire pour modifier le statut -->
+  <div>
+    <label for="status">Statut de la réclamation:</label>
+    <select id="status" [(ngModel)]="reclamation.statut">
+      <option *ngFor="let option of statusOptions" [value]="option.value">
+        {{ option.label }}
+      </option>
+    </select>
+  </div>
+
+  <!-- Button pour sauvegarder la modification -->
+  <button (click)="updateStatus(reclamation.statut)">Modifier le statut</button>
+</div>

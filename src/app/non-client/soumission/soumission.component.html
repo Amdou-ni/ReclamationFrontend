@@ -1,0 +1,65 @@
+<div class="container">
+    <h2 class="title">Nouvelle Réclamation</h2>
+  
+    <form [formGroup]="reclamationForm" (ngSubmit)="onSubmit()" class="form">
+      <!-- Type de réclamation -->
+      <div class="form-group">
+        <label for="type">Type de réclamation *</label>
+        <select 
+          id="type" 
+          formControlName="type" 
+          class="form-control"
+          [class.is-invalid]="reclamationForm.get('type')?.invalid && reclamationForm.get('type')?.touched">
+          <option value="" disabled>Choisissez un type</option>
+          <option *ngFor="let type of typesReclamation" [value]="type.value">
+            {{ type.label }}
+          </option>
+        </select>
+        <div *ngIf="reclamationForm.get('type')?.invalid && reclamationForm.get('type')?.touched" class="error-message">
+          Veuillez sélectionner un type
+        </div>
+      </div>
+  
+      <!-- Description -->
+      <div class="form-group">
+        <label for="description">Description *</label>
+        <textarea 
+          id="description" 
+          formControlName="description" 
+          rows="5"
+          class="form-control"
+          [class.is-invalid]="reclamationForm.get('description')?.invalid && reclamationForm.get('description')?.touched"
+          placeholder="Décrivez votre problème en détail..."></textarea>
+        <div *ngIf="reclamationForm.get('description')?.errors?.['required'] && reclamationForm.get('description')?.touched" 
+             class="error-message">
+          La description est obligatoire
+        </div>
+        <div *ngIf="reclamationForm.get('description')?.errors?.['minlength'] && reclamationForm.get('description')?.touched" 
+             class="error-message">
+          Minimum 10 caractères requis
+        </div>
+      </div>
+  
+      <!-- Fichier joint -->
+      <div class="form-group">
+        <label for="fichier">Pièce jointe (optionnel)</label>
+        <input 
+          type="file" 
+          id="fichier" 
+          (change)="onFileChange($event)"
+          class="form-control-file">
+        <small class="form-text">Formats acceptés: PDF, JPG, PNG (max 5MB)</small>
+      </div>
+  
+      <!-- Bouton de soumission -->
+      <button 
+        type="submit" 
+        class="submit-button"
+        [disabled]="isSubmitting">
+        <span *ngIf="!isSubmitting">Soumettre</span>
+        <span *ngIf="isSubmitting">
+          <span class="spinner"></span> Envoi en cours...
+        </span>
+      </button>
+    </form>
+  </div>

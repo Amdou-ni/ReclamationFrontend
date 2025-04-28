@@ -1,0 +1,29 @@
+<div class="reclamation-detail" *ngIf="reclamation">
+  <h2>Détail de la Réclamation</h2>
+
+  <div class="info">
+    <p><strong>ID:</strong> {{ reclamation.id }}</p>
+    <p><strong>Type:</strong> {{ typeLabels[reclamation.type] }}</p>
+    <p><strong>Statut:</strong> {{ statutLabels[reclamation.statut || ''] }}</p>
+    <p><strong>Date de Soumission:</strong> {{ formatDate(reclamation.dateSoumission) }}</p>
+    <p><strong>Description:</strong></p>
+    <p class="description">{{ reclamation.description }}</p>
+  </div>
+
+  <div class="pieces-jointes" *ngIf="reclamation.piecesJointes?.length">
+    <h3>Pièces Jointes</h3>
+    <ul>
+      <li *ngFor="let piece of reclamation.piecesJointes">
+        <a [href]="piece" target="_blank">Voir la pièce jointe</a>
+      </li>
+    </ul>
+  </div>
+
+  <div class="comments" *ngIf="reclamation.comments?.length">
+    <h3>Commentaires</h3>
+    <div *ngFor="let comment of reclamation.comments" [class.agent-comment]="comment.isAgentComment" class="comment">
+      <p class="author">{{ comment.author }} - {{ comment.createdAt | date:'short' }}</p>
+      <p>{{ comment.content }}</p>
+    </div>
+  </div>
+</div>

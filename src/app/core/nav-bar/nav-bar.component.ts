@@ -14,11 +14,12 @@ export class NavbarComponent implements OnInit {
   ngOnInit(): void {
     this.role = this.authService.getRole();
   }
+
   logout(): void {
     this.authService.logout();
-    this.router.navigate(['/auth/login']);
   }
 }
+
 
 
 

@@ -1,0 +1,36 @@
+<div class="utilisateur-detail" *ngIf="utilisateur; else loading">
+    <h2>Détails de l'utilisateur</h2>
+  
+    <div *ngIf="utilisateur">
+      <p><strong>Nom :</strong> {{ utilisateur?.nom }}</p>
+      <p><strong>Email :</strong> {{ utilisateur?.email }}</p>
+      <p><strong>Téléphone :</strong> {{ utilisateur?.telephone }}</p>
+  
+      <!-- Si l'utilisateur est un Client -->
+      <div *ngIf="client">
+        <p><strong>ID STB :</strong> {{ client?.stbId }}</p> <!-- Safe navigation opérateur -->
+        <!-- Ajoutez d'autres propriétés spécifiques au Client ici -->
+      </div>
+  
+      <!-- Si l'utilisateur est un Non-Client -->
+      <div *ngIf="nonClient">
+        <p><strong>Notes :</strong> {{ nonClient?.notes || 'Aucune note' }}</p> <!-- Safe navigation opérateur -->
+        <!-- Ajoutez d'autres propriétés spécifiques aux Non-Clients ici -->
+      </div>
+    </div>
+  
+    <button *ngIf="utilisateur" (click)="editUtilisateur()">Modifier</button>
+  </div>
+  
+  <ng-template #loading>
+    <div class="loading">
+      <p>Chargement des informations...</p>
+    </div>
+  </ng-template>
+  
+  <ng-template #error>
+    <div class="error">
+      <p>Erreur lors de la récupération des données de l'utilisateur.</p>
+    </div>
+  </ng-template>
+  

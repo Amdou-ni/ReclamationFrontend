@@ -1,0 +1,43 @@
+<div class="filters">
+    <div class="filter">
+      <label for="statusFilter">Statut</label>
+      <select [(ngModel)]="statusFilter" id="statusFilter" (change)="applyFilters()">
+        <option *ngFor="let option of statusOptions" [value]="option.value">{{ option.label }}</option>
+      </select>
+    </div>
+  
+    <div class="filter">
+      <label for="typeFilter">Type</label>
+      <select [(ngModel)]="typeFilter" id="typeFilter" (change)="applyFilters()">
+        <option *ngFor="let option of typeOptions" [value]="option.value">{{ option.label }}</option>
+      </select>
+    </div>
+  </div>
+  
+  <table *ngIf="!isLoading" class="reclamations-table">
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>Type</th>
+        <th>Date</th>
+        <th>Statut</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let reclamation of filteredReclamations">
+        <td>{{ reclamation.id }}</td>
+        <td>{{ reclamation.type }}</td>
+        <td>{{ reclamation.dateSoumission | date: 'short' }}</td>
+        <td>{{ reclamation.statut }}</td>
+        <td>
+          <button (click)="viewDetails(reclamation.id)">Voir détails</button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+  
+  <div *ngIf="isLoading" class="loading">
+    <p>Chargement...</p>
+  </div>
+  

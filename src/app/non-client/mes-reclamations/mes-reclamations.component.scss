@@ -1,0 +1,95 @@
+/* Styles communs */
+.loading-spinner {
+    display: flex;
+    justify-content: center;
+    padding: 2rem;
+  }
+  
+  .status-badge {
+    padding: 4px 8px;
+    border-radius: 12px;
+    font-size: 0.75rem;
+    font-weight: 500;
+  
+    &.en_attente {
+      background-color: #fff3cd;
+      color: #856404;
+    }
+  
+    &.en_cours {
+      background-color: #cce5ff;
+      color: #004085;
+    }
+  
+    &.resolu {
+      background-color: #d4edda;
+      color: #155724;
+    }
+  
+    &.rejete {
+      background-color: #f8d7da;
+      color: #721c24;
+    }
+  }
+  
+  /* Styles spécifiques à mes-reclamations */
+  .reclamations-container {
+    padding: 1rem;
+  
+    table {
+      width: 100%;
+      margin-bottom: 1rem;
+    }
+  
+    .no-data {
+      text-align: center;
+      padding: 2rem;
+      color: #6c757d;
+  
+      mat-icon {
+        font-size: 3rem;
+        height: 3rem;
+        width: 3rem;
+        margin-bottom: 1rem;
+      }
+    }
+  }
+  
+  /* Styles spécifiques à detail-reclamation */
+  .detail-container {
+    padding: 1rem;
+  
+    .back-button {
+      margin-bottom: 1rem;
+    }
+  
+    .reclamation-detail {
+      max-width: 800px;
+      margin: 0 auto;
+  
+      mat-card {
+        margin-bottom: 1rem;
+      }
+  
+      .detail-row {
+        display: flex;
+        margin-bottom: 1rem;
+  
+        .detail-label {
+          font-weight: 500;
+          min-width: 120px;
+        }
+      }
+  
+      .detail-description {
+        margin-top: 2rem;
+        padding-top: 1rem;
+        border-top: 1px solid #eee;
+      }
+  
+      .actions {
+        margin-top: 1rem;
+        text-align: right;
+      }
+    }
+  }

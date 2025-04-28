@@ -1,0 +1,44 @@
+<div class="container">
+    <h2>Nouvelle Réclamation</h2>
+    
+    <form [formGroup]="reclamationForm" (ngSubmit)="onSubmit()">
+      <div class="form-group">
+        <label>Type de réclamation *</label>
+        <select formControlName="type">
+          <option value="">Sélectionnez un type</option>
+          <option value="TECHNIQUE">Technique</option>
+          <option value="SERVICE">Service client</option>
+          <option value="FACTURATION">Facturation</option>
+        </select>
+        <div *ngIf="reclamationForm.get('type')?.invalid && reclamationForm.get('type')?.touched" 
+             class="error-message">
+          Ce champ est obligatoire
+        </div>
+      </div>
+  
+      <div class="form-group">
+        <label>Description *</label>
+        <textarea formControlName="description" rows="5"></textarea>
+        <div *ngIf="reclamationForm.get('description')?.errors?.['required'] && 
+                   reclamationForm.get('description')?.touched" 
+             class="error-message">
+          Ce champ est obligatoire
+        </div>
+        <div *ngIf="reclamationForm.get('description')?.errors?.['minlength'] && 
+                   reclamationForm.get('description')?.touched" 
+             class="error-message">
+          Minimum 10 caractères requis
+        </div>
+      </div>
+  
+      <div class="form-group">
+        <label>Pièce jointe (optionnel)</label>
+        <input type="file" (change)="onFileChange($event)">
+      </div>
+  
+      <button type="submit" [disabled]="reclamationForm.invalid || isSubmitting">
+        <span *ngIf="!isSubmitting">Soumettre</span>
+        <span *ngIf="isSubmitting">Envoi en cours...</span>
+      </button>
+    </form>
+  </div>

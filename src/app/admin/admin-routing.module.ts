@@ -1,34 +1,23 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { DashboardComponent } from '../home/dashboard/dashboard.component';
-
-
+import { AssignationComponent } from './assignation/assignation.component';
+import { AdminNotificationsComponent } from './notifications/notifications.component';
 import { ReclamationsListComponent } from './reclamations-list/reclamations-list.component';
-import { AuthGuard } from '../auth/auth.guard'; // Chemin selon ton projet
+import { TypesReclamationComponent } from './types-reclamation/types-reclamation.component';
+import { UsersComponent } from './users/users.component';
+import { AdminGuard } from 'src/app/auth/admin.guard'; // Votre guard admin
 
 const routes: Routes = [
-  {
-    path: 'reclamations-list',
-    component: ReclamationsListComponent,
-    canActivate: [AuthGuard],
-    data: { roles: ['Admin'] }
-  },
-
-  {
-    path: '',
-    component: DashboardComponent, // <- à importer
-    canActivate: [AuthGuard],
-    data: { roles: ['Admin'] }
-  }
-
-
-
-
-  
+  { path: 'assignation', component: AssignationComponent, canActivate: [AdminGuard] },
+  { path: 'notifications', component: AdminNotificationsComponent, canActivate: [AdminGuard] },
+  { path: 'reclamations-list', component: ReclamationsListComponent, canActivate: [AdminGuard] },
+  { path: 'types-reclamation', component: TypesReclamationComponent, canActivate: [AdminGuard] },
+  { path: 'users', component: UsersComponent, canActivate: [AdminGuard] },
+  { path: '', redirectTo: 'reclamations-list', pathMatch: 'full' }
 ];
 
 @NgModule({
   imports: [RouterModule.forChild(routes)],
   exports: [RouterModule]
 })
-export class AdminRoutingModule {}
+export class AdminRoutingModule { }

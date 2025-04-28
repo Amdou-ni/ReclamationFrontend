@@ -1,1 +1,37 @@
-<p>users works!</p>
+<div class="users">
+    <h2>Utilisateurs</h2>
+    <form (ngSubmit)="addUser()">
+      <input [(ngModel)]="newUser.nom" placeholder="Nom" required />
+      <input [(ngModel)]="newUser.email" placeholder="Email" required />
+      <input [(ngModel)]="newUser.telephone" placeholder="Téléphone" required />
+      <select [(ngModel)]="newUser.type">
+        <option value="STB">Client STB</option>
+        <option value="Agent">Agent</option>
+      </select>
+      <button type="submit">Ajouter Utilisateur</button>
+    </form>
+    
+    <table>
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Nom</th>
+          <th>Email</th>
+          <th>Type</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let user of utilisateurs">
+          <td>{{ user.id }}</td>
+          <td>{{ user.nom }}</td>
+          <td>{{ user.email }}</td>
+          <td>{{ user.type }}</td>
+          <td>
+            <button (click)="deleteUser(user.id)">Supprimer</button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  

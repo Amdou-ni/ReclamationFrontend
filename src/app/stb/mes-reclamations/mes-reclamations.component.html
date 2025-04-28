@@ -1,0 +1,67 @@
+<div class="mes-reclamations-container">
+    <div class="header-section">
+      <h2>
+        <i class="fas fa-list-alt"></i>
+        Mes Réclamations
+      </h2>
+      
+      <div class="filter-section">
+        <select class="status-filter" [(ngModel)]="statusFilter" (change)="applyFilter()">
+          <option value="">Tous les statuts</option>
+          <option value="EN_ATTENTE">En attente</option>
+          <option value="EN_COURS">En cours</option>
+          <option value="RESOLUE">Résolue</option>
+          <option value="REJETEE">Rejetée</option>
+        </select>
+        
+        <span class="result-count">
+          {{ filteredReclamations.length }} réclamation(s)
+        </span>
+      </div>
+    </div>
+  
+    <div *ngIf="isLoading" class="loading-state">
+      <div class="spinner"></div>
+      <p>Chargement de vos réclamations...</p>
+    </div>
+  
+    <div *ngIf="!isLoading && filteredReclamations.length === 0" class="empty-state">
+      <i class="fas fa-inbox"></i>
+      <h3>Aucune réclamation trouvée</h3>
+      <p *ngIf="statusFilter">Aucune réclamation avec le statut "{{ statusFilter | lowercase }}"</p>
+      <p *ngIf="!statusFilter">Vous n'avez aucune réclamation pour le moment</p>
+      <a routerLink="/stb/soumission" class="new-reclamation-btn">
+        <i class="fas fa-plus"></i> Nouvelle réclamation
+      </a>
+    </div>
+  
+    <div *ngIf="!isLoading && filteredReclamations.length > 0" class="reclamations-list">
+      <div *ngFor="let rec of filteredReclamations" 
+           class="reclamation-card"
+           [class]="getStatusClass(rec.statut)"
+           (click)="viewDetails(rec.id)">
+           
+        <div class="card-header">
+          <span class="reclamation-id">#{{ rec.id }}</span>
+          <span class="reclamation-date">{{ rec.dateSoumission | date:'dd/MM/yyyy' }}</span>
+        </div>
+        
+        <div class="card-body">
+          <h3 class="reclamation-type">{{ rec.type | titlecase }}</h3>
+          <p class="reclamation-description">
+            {{ (rec.description || '').slice(0, 100) }}{{ (rec.description || '').length > 100 ? '...' : '' }}
+          </p>
+        </div>
+        
+        <div class="card-footer">
+          <span class="status-badge">
+            {{ rec.statut | titlecase }}
+          </span>
+          
+          <button class="details-btn" (click)="viewDetails(rec.id); $event.stopPropagation()">
+            Voir détails <i class="fas fa-chevron-right"></i>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>

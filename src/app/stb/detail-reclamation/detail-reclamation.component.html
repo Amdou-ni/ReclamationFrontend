@@ -1,0 +1,94 @@
+<div class="detail-container">
+    <!-- En-tête -->
+    <div class="header">
+      <a routerLink="/stb/mes-reclamations" class="back-link">
+        <i class="fas fa-arrow-left"></i> Retour
+      </a>
+      <h2>Détails de la réclamation #{{ reclamation?.id }}</h2>
+    </div>
+  
+    <!-- États -->
+    <div *ngIf="isLoading" class="state-message loading">
+      <p>Chargement en cours...</p>
+    </div>
+  
+    <div *ngIf="error && !isLoading" class="state-message error">
+      <p>{{ error }}</p>
+    </div>
+  
+    <!-- Contenu principal -->
+    <div *ngIf="!isLoading && reclamation" class="content">
+      <!-- Section Informations -->
+      <div class="section">
+        <h3>Informations</h3>
+        
+        <div class="info-row">
+          <span>Statut:</span>
+          <select [(ngModel)]="reclamation.statut" 
+                  (change)="updateStatus(reclamation.statut || 'EN_ATTENTE')">
+            <option *ngFor="let status of statusOptions" 
+                    [value]="status"
+                    [selected]="status === reclamation.statut">
+              {{ status }}
+            </option>
+          </select>
+        </div>
+  
+        <div class="info-row">
+          <span>Type:</span>
+          <span>{{ reclamation.type }}</span>
+        </div>
+  
+        <div class="info-row">
+          <span>Date:</span>
+          <span>{{ reclamation.dateSoumission | date:'mediumDate' }}</span>
+        </div>
+      </div>
+  
+      <!-- Section Description -->
+      <div class="section">
+        <h3>Description</h3>
+        <p>{{ reclamation.description }}</p>
+      </div>
+  
+      <!-- Section Pièces jointes -->
+      <div *ngIf="reclamation.piecesJointes && reclamation.piecesJointes.length > 0" class="section">
+        <h3>Pièces jointes</h3>
+        <div class="attachments">
+          <div *ngFor="let file of reclamation.piecesJointes" class="file-item">
+            <button (click)="downloadFile(file)">
+              <i class="fas fa-download"></i>
+              {{ extractFilename(file) }}
+            </button>
+          </div>
+        </div>
+      </div>
+  
+      <!-- Section Commentaires -->
+      <div class="section">
+        <h3>Commentaires</h3>
+        
+        <div *ngIf="!reclamation.comments || reclamation.comments.length === 0" class="empty-state">
+          <p>Aucun commentaire</p>
+        </div>
+  
+        <div *ngIf="reclamation.comments && reclamation.comments.length > 0" class="comments-list">
+          <div *ngFor="let comment of reclamation.comments" class="comment">
+            <div class="comment-header">
+              <strong>{{ comment.author }}</strong>
+              <span>{{ comment.createdAt | date:'short' }}</span>
+            </div>
+            <p class="comment-content">{{ comment.content }}</p>
+          </div>
+        </div>
+  
+        <!-- Formulaire -->
+        <form [formGroup]="newCommentForm" (ngSubmit)="addComment()" class="comment-form">
+          <textarea formControlName="content" placeholder="Votre commentaire..."></textarea>
+          <button type="submit" [disabled]="newCommentForm.invalid">
+            Ajouter un commentaire
+          </button>
+        </form>
+      </div>
+    </div>
+  </div>

@@ -1,0 +1,24 @@
+<div class="notifications">
+    <h2>Mes Notifications</h2>
+  
+    <div *ngIf="isLoading" class="loading">
+      Chargement des notifications...
+    </div>
+  
+    <div *ngIf="!isLoading && notifications.length > 0" class="notification-list">
+      <div *ngFor="let notif of notifications" class="notification-item" [class.expired]="notif.expired">
+        <div class="message">
+          {{ notif.message }}
+        </div>
+        <div class="details">
+          <span>Envoyé le : {{ notif.dateEnvoi | date: 'dd/MM/yyyy HH:mm' }}</span> |
+          <span>Destinataire : {{ getDestinataireLabel(notif.destinataire.type) }}</span>
+        </div>
+      </div>
+    </div>
+  
+    <div *ngIf="!isLoading && notifications.length === 0" class="no-notifications">
+      Aucune notification pour le moment.
+    </div>
+  </div>
+  

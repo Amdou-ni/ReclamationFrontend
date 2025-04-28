@@ -1,0 +1,16 @@
+<div class="stb-login-container">
+    <h2>Connexion STB</h2>
+    <form (ngSubmit)="login()">
+      <div>
+        <label>Email</label>
+        <input type="email" [(ngModel)]="email" name="email" required />
+      </div>
+      <div>
+        <label>Mot de passe</label>
+        <input type="password" [(ngModel)]="password" name="password" required />
+      </div>
+      <button type="submit">Se connecter</button>
+    </form>
+    <div *ngIf="errorMessage" class="error">{{ errorMessage }}</div>
+  </div>
+  

@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ReclamationService } from '../../services/reclamation.service';
+import { Reclamation } from '../../interfaces/reclamation.interface';
 
 @Component({
   selector: 'app-reclamations-list',
@@ -7,15 +8,23 @@ import { ReclamationService } from '../../services/reclamation.service';
   styleUrls: ['./reclamations-list.component.scss']
 })
 export class ReclamationsListComponent implements OnInit {
-  reclamations: any[] = [];
+  reclamations: Reclamation[] = [];
 
   constructor(private reclamationService: ReclamationService) {}
 
-  ngOnInit(): void {
-    this.reclamationService.getAllReclamations().subscribe({
-      next: (data) => this.reclamations = data,
-      error: (err) => console.error('Erreur de chargement :', err)
+  ngOnInit() {
+    this.loadReclamations();
+  }
+
+  loadReclamations() {
+    this.reclamationService.getAllReclamations().subscribe(reclamations => {
+      this.reclamations = reclamations;
+    });
+  }
+
+  deleteReclamation(reclamationId: number) {
+    this.reclamationService.deleteReclamation(reclamationId).subscribe(() => {
+      this.loadReclamations();
     });
   }
 }
-

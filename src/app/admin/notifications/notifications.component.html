@@ -1,0 +1,11 @@
+<div class="notifications">
+  <h2>Notifications</h2>
+  <button (click)="markAllAsRead()">Marquer toutes comme lues</button>
+  <ul>
+    <li *ngFor="let notification of notifications">
+      <strong>{{ notification.destinataire.type }}</strong>: {{ notification.message }} - {{ notification.dateEnvoi | date:'short' }}
+      <span *ngIf="notification.expired" style="color: red;">(Expirée)</span>
+      <button (click)="markAsRead(notification.id)">Marquer comme lue</button>
+    </li>
+  </ul>
+</div>

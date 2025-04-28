@@ -1,0 +1,63 @@
+<div class="mes-reclamations">
+    <h2>Mes Réclamations</h2>
+  
+    <!-- Filtres -->
+    <div class="filters">
+      <label>
+        Statut :
+        <select [(ngModel)]="statusFilter" (change)="applyFilters()">
+          <option *ngFor="let option of statusOptions" [value]="option.value">
+            {{ option.label }}
+          </option>
+        </select>
+      </label>
+  
+      <label>
+        Type :
+        <select [(ngModel)]="typeFilter" (change)="applyFilters()">
+          <option *ngFor="let option of typeOptions" [value]="option.value">
+            {{ option.label }}
+          </option>
+        </select>
+      </label>
+    </div>
+  
+    <!-- Loader -->
+    <div *ngIf="isLoading" class="loading">
+      Chargement des réclamations...
+    </div>
+  
+    <!-- Tableau des réclamations -->
+    <table *ngIf="!isLoading && filteredReclamations.length > 0" class="reclamations-table">
+      <thead>
+        <tr>
+          <th>Numéro</th>
+          <th>Type</th>
+          <th>Date de soumission</th>
+          <th>Statut</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let reclamation of filteredReclamations">
+          <td>{{ reclamation.id }}</td>
+          <td>{{ getTypeLabel(reclamation.type) }}</td>
+          <td>{{ reclamation.dateSoumission | date: 'dd/MM/yyyy' }}</td>
+          <td>
+            <span [class]="getStatusClass(reclamation.statut!)">
+              {{ reclamation.statut }}
+            </span>
+          </td>
+          <td>
+            <button (click)="viewDetails(reclamation.id)">Détails</button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  
+    <!-- Alerte si aucune réclamation -->
+    <div *ngIf="!isLoading && filteredReclamations.length === 0" class="no-data">
+      Aucune réclamation trouvée pour les filtres sélectionnés.
+    </div>
+  </div>
+  

@@ -1,0 +1,32 @@
+<div *ngIf="reclamation">
+    <h3>Ajouter un commentaire</h3>
+  
+    <!-- Formulaire de commentaire -->
+    <form (ngSubmit)="onSubmit()">
+      <div class="form-group">
+        <label for="comment">Commentaire</label>
+        <textarea 
+          id="comment" 
+          [(ngModel)]="commentContent" 
+          name="comment" 
+          rows="4" 
+          class="form-control" 
+          required>
+        </textarea>
+      </div>
+  
+      <!-- Option de commentaire par l'agent -->
+      <div class="form-group">
+        <label for="isAgentComment">Est-ce un commentaire de l'agent ?</label>
+        <input 
+          type="checkbox" 
+          id="isAgentComment" 
+          [(ngModel)]="isAgentComment" 
+          name="isAgentComment" 
+          class="form-check-input" />
+      </div>
+  
+      <button type="submit" class="btn btn-primary" [disabled]="!commentContent">Ajouter le commentaire</button>
+    </form>
+  </div>
+  
